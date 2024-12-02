@@ -1,0 +1,49 @@
+from mplfonts import use_font
+use_font('Noto Serif CJK SC')
+
+class Patient:
+    def __init__(self):
+        self.name = "黃小姐"
+        self.age = 36
+        self.symptoms = ["眼睛癢", "嘴巴破洞", "全身紅疹"]
+        self.medications = {
+            "孟克杏錠": {"usage": "一天兩次早晚飯後二顆", "type": "抗生素"},
+            "愛舒疼錠": {"usage": "需要時服用", "type": "止痛退燒藥"}
+        }
+        self.diagnosis = "泌尿道感染"
+
+class PharmacistConsultation:
+    def __init__(self):
+        self.score = 0
+        self.max_score = 30
+        self.patient = Patient()
+        
+    def start_consultation(self):
+        print("=== 藥物諮詢室電話諮詢模擬系統 ===\n")
+        print("*電話鈴響*\n")
+        
+        # 測試電話禮儀
+        answer = input("請問您要如何接聽電話？\n> ")
+        if "您好" in answer and ("藥師" in answer or "藥局" in answer):
+            print("做得好！正確的電話禮儀！(+2分)")
+            self.score += 2
+        
+        # 詢問病人身份
+        answer = input("\n接下來您要詢問什麼？\n> ")
+        if "稱呼" in answer or "姓名" in answer:
+            print(f"病人：我姓{self.patient.name[0]}。")
+            self.score += 2
+            
+        # 詢問病史
+        print("\n病人：我吃藥後覺得身體不舒服...")
+        answer = input("您要如何回應？\n> ")
+        if "症狀" in answer or "不舒服" in answer:
+            print(f"病人：我有{', '.join(self.patient.symptoms)}等症狀。")
+            self.score += 2
+
+        print("\n=== 模擬結束 ===")
+        print(f"您的得分：{self.score}/{self.max_score}")
+        
+if __name__ == "__main__":
+    consultation = PharmacistConsultation()
+    consultation.start_consultation()
